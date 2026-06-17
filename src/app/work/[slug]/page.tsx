@@ -1,21 +1,121 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { portfolioItems } from "@/lib/data";
+import { ArrowLeft } from "lucide-react";
+import { portfolioItems, categoryLabel } from "@/lib/data";
+import { Button } from "@/components/ui/button";
+import { InstagramIcon } from "@/components/ui/icons";
 
-export default function WorkItemPage({ params }: { params: { slug: string } }) {
-  const item = portfolioItems.find((i) => i.slug === params.slug);
+const INSTAGRAM_URL = "https://www.instagram.com/hoorinaz.art/";
+
+export default async function WorkItemPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const item = portfolioItems.find((i) => i.slug === slug);
   if (!item) notFound();
 
+  const next = portfolioItems.filter((i) => i.slug !== slug).slice(0, 3);
+
   return (
-    <div className="container py-16">
-      <Link href="/work" className="text-sm text-muted-foreground hover:text-foreground">
-        &larr; Back to Work
+    <article className="container py-16">
+      <Link
+        href="/work"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary"
+      >
+        <ArrowLeft className="h-3.5 w-3.5" /> Back to Work
       </Link>
-      <span className="mt-6 block text-xs uppercase tracking-wide text-muted-foreground">
-        {item.category.replace("-", " ")}
-      </span>
-      <h1 className="mt-1 font-serif text-3xl font-semibold">{item.title}</h1>
-      <p className="mt-4 max-w-2xl text-muted-foreground">{item.description}</p>
-    </div>
+
+      <header className="mt-10 max-w-3xl">
+        <p className="text-xs uppercase tracking-widest text-primary/80">
+          {categoryLabel[item.category]}
+          {item.year && <span className="ml-3 text-muted-foreground/80">{item.year}</span>}
+        </p>
+        <h1 className="mt-4 font-serif text-5xl font-medium leading-tight sm:text-6xl">
+          {item.title}
+        </h1>
+        <div className="hairline mt-6 w-24" />
+        <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          {item.description}
+        </p>
+      </header>
+
+      <div
+        className={`grain relative mt-12 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border/40 preview-${item.category}`}
+      >
+        <div className="absolute inset-0 bg-ink-fade opacity-60" />
+      </div>
+
+      <div className="mt-12 grid gap-8 md:grid-cols-3">
+        <div className="md:col-span-2 space-y-5 text-muted-foreground leading-relaxed">
+          <p>
+            Each piece begins on paper — a sketched idea, a swatch of fabric, a
+            scrap of leather. From there the work moves slowly: cutting,
+            dyeing, stitching, finishing.
+          </p>
+          <p>
+            For commissions or to ask about availability, send a note via the{" "}
+            <Link href="/contact" className="text-primary hover:underline">
+              contact page
+            </Link>
+            , or follow the latest pieces on Instagram.
+          </p>
+        </div>
+        <aside className="surface-card rounded-2xl border border-border/40 p-6">
+          <p className="text-xs uppercase tracking-widest text-primary/80">Details</p>
+          <dl className="mt-4 space-y-3 text-sm">
+            <div className="flex items-center justify-between">
+              <dt className="text-muted-foreground">Category</dt>
+              <dd className="font-medium">{categoryLabel[item.category]}</dd>
+            </div>
+            {item.year && (
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground">Year</dt>
+                <dd className="font-medium">{item.year}</dd>
+              </div>
+            )}
+            <div className="flex items-center justify-between">
+              <dt className="text-muted-foreground">Made</dt>
+              <dd className="font-medium">By hand, in studio</dd>
+            </div>
+          </dl>
+          <div className="hairline my-6" />
+          <Button asChild variant="outline" className="w-full">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              <InstagramIcon className="mr-2 h-4 w-4" />
+              See on Instagram
+            </a>
+          </Button>
+        </aside>
+      </div>
+
+      {/* More work */}
+      <section className="mt-24">
+        <div className="flex items-end justify-between">
+          <h2 className="font-serif text-2xl">More from the studio</h2>
+          <Link href="/work" className="text-sm text-muted-foreground hover:text-primary">
+            All work →
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          {next.map((n) => (
+            <Link
+              key={n.slug}
+              href={`/work/${n.slug}`}
+              className="group block overflow-hidden rounded-xl border border-border/40 surface-card transition-all hover:-translate-y-1 hover:border-primary/50"
+            >
+              <div className={`grain aspect-[4/3] w-full preview-${n.category}`} />
+              <div className="p-4">
+                <p className="text-[10px] uppercase tracking-widest text-primary/80">
+                  {categoryLabel[n.category]}
+                </p>
+                <h3 className="mt-1 font-serif text-lg">{n.title}</h3>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </article>
   );
 }

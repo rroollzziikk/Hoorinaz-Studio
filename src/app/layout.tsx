@@ -1,12 +1,32 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
+const sans = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Hoorinaz Studio",
+  title: "Hoorinaz Studio — Handcraft & Design",
   description:
-    "Handcraft & design studio — fashion, textile, wood, leather, and interior design, plus art workshops.",
+    "A handcraft & design studio. Fashion, textile, wood, leather, and interior design — plus art workshops by Hoorinaz.",
+  openGraph: {
+    title: "Hoorinaz Studio",
+    description:
+      "Handcraft & design studio — made by hand, with care. Follow @hoorinaz.art on Instagram.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -15,10 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col font-sans">
+    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+      <body className="relative flex min-h-screen flex-col font-sans text-foreground">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="relative z-10 flex-1">{children}</main>
         <Footer />
       </body>
     </html>
