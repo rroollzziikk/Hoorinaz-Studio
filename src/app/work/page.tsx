@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { categories, portfolioItems, categoryLabel } from "@/lib/data";
 import { Ornament } from "@/components/ui/ornament";
+import { WorkTile } from "@/components/ui/work-tile";
 
 export default async function WorkPage({
   searchParams,
@@ -28,47 +29,26 @@ export default async function WorkPage({
 
       {/* Category chips */}
       <div className="mt-12 flex flex-wrap justify-center gap-2">
-        <Link
-          href="/work"
-          className={chip(!active)}
-        >
-          All
-        </Link>
+        <Link href="/work" className={chip(!active)}>All</Link>
         {categories.map((cat) => (
-          <Link
-            key={cat}
-            href={`/work?category=${cat}`}
-            className={chip(active === cat)}
-          >
+          <Link key={cat} href={`/work?category=${cat}`} className={chip(active === cat)}>
             {categoryLabel[cat]}
           </Link>
         ))}
       </div>
 
       {/* Grid */}
-      <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
-          <Link
-            key={item.slug}
-            href={`/work/${item.slug}`}
-            className="group block overflow-hidden rounded-xl border border-border/40 surface-card transition-all duration-500 hover:-translate-y-1 hover:border-primary/50"
-          >
-            <div
-              className={`relative grain aspect-[4/3] w-full overflow-hidden preview-${item.category}`}
-            >
-              <div className="absolute inset-0 bg-ink-fade opacity-70" />
-              <div className="absolute left-4 top-4 rounded-full border border-primary/40 bg-ink-900/60 px-2.5 py-1 text-[10px] uppercase tracking-widest text-primary/90 backdrop-blur-sm">
+          <Link key={item.slug} href={`/work/${item.slug}`} className="group block">
+            <WorkTile category={item.category} year={item.year} aspect="4/5" />
+            <div className="mt-5">
+              <p className="text-[10px] uppercase tracking-[0.28em] text-primary/75">
                 {categoryLabel[item.category]}
-              </div>
-              {item.year && (
-                <div className="absolute right-4 top-4 text-[10px] uppercase tracking-widest text-foreground/80">
-                  {item.year}
-                </div>
-              )}
-            </div>
-            <div className="p-6">
-              <h2 className="font-serif text-2xl">{item.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {item.year && <span className="text-muted-foreground/70"> · {item.year}</span>}
+              </p>
+              <h2 className="mt-2 font-serif text-2xl">{item.title}</h2>
+              <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
             </div>
@@ -78,7 +58,8 @@ export default async function WorkPage({
 
       {items.length === 0 && (
         <div className="mt-20 text-center text-muted-foreground">
-          No pieces in this category yet. <Link href="/work" className="text-primary hover:underline">See all work</Link>.
+          No pieces in this category yet.{" "}
+          <Link href="/work" className="text-primary hover:underline">See all work</Link>.
         </div>
       )}
     </div>

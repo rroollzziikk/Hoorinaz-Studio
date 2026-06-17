@@ -24,13 +24,10 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         <Link
           href="/"
-          aria-label="Hoorinaz Studio — home"
-          className="group flex items-center gap-3"
+          aria-label="Hoorinaz Art Studio — home"
+          className="group"
         >
-          <BrandMark variant="icon" className="h-10 w-10 transition-shadow group-hover:ring-primary/60" />
-          <span className="font-serif text-lg font-medium tracking-tight">
-            Hoorinaz <span className="gold-text italic">Studio</span>
-          </span>
+          <BrandMark variant="compact" className="transition-opacity group-hover:opacity-90" />
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm md:flex">

@@ -1,9 +1,4 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
-
-type Variant = "icon" | "medallion";
+type Variant = "icon" | "compact" | "medallion";
 
 interface BrandMarkProps {
   variant?: Variant;
@@ -11,106 +6,101 @@ interface BrandMarkProps {
 }
 
 /**
- * Renders the Hoorinaz Art badge.
- * - "icon": small, clipped to a circle — for header/footer.
- * - "medallion": large, with a soft gold glow — for hero/about.
+ * Hoorinaz Art Studio — brand mark, designed in code.
  *
- * The constructed mark is rendered first; the real /logo.png fades in on
- * top once it loads. If the file is missing or fails, the constructed
- * mark remains — no broken-image flash, no layout shift.
+ * The shared pattern across every variant:
+ *   1. A serif H in champagne gold (the crest)
+ *   2. A thin gold rule punctuated by a small diamond
+ *   3. The "Hoorinaz" wordmark in cream serif
+ *   4. "ART STUDIO" in spaced gold caps
+ *
+ * Variants:
+ *   - icon      : small round H crest (header/footer)
+ *   - compact   : horizontal lockup — H crest + stacked wordmark
+ *                 (alternative header treatment)
+ *   - medallion : full vertical composition (hero & about)
+ *
+ * No external image dependency — sharp at every size, themed by CSS vars.
  */
 export function BrandMark({ variant = "icon", className = "" }: BrandMarkProps) {
-  const [loaded, setLoaded] = useState(false);
-  const [failed, setFailed] = useState(false);
-  const showImage = loaded && !failed;
-
   if (variant === "icon") {
     return (
       <span
-        className={`relative block overflow-hidden rounded-full ring-1 ring-primary/30 ${className}`}
+        className={`relative grid place-items-center overflow-hidden rounded-full border border-primary/45 bg-ink-900/40 ${className}`}
+        aria-label="Hoorinaz Art Studio"
       >
-        <FallbackIcon />
-        <Image
-          src="/logo.png"
-          alt="Hoorinaz Art"
-          fill
-          sizes="64px"
-          className={`object-cover transition-opacity duration-500 ${
-            showImage ? "opacity-100" : "opacity-0"
-          }`}
-          onLoad={() => setLoaded(true)}
-          onError={() => setFailed(true)}
-          priority
-        />
+        {/* inner gold hairline ring */}
+        <span className="absolute inset-[3px] rounded-full border border-primary/20" />
+        <span className="font-serif text-lg font-medium leading-none gold-text">
+          H
+        </span>
       </span>
     );
   }
 
-  // medallion
-  return (
-    <div className={`relative ${className}`}>
-      <div
-        aria-hidden
-        className="absolute -inset-6 rounded-full blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, hsl(40 60% 50% / 0.18), transparent 65%)",
-        }}
-      />
-      <FallbackMedallion />
-      <Image
-        src="/logo.png"
-        alt="Hoorinaz Art"
-        fill
-        sizes="(min-width: 768px) 16rem, 13rem"
-        className={`rounded-full object-contain drop-shadow-[0_20px_40px_hsl(152_50%_4%/0.7)] transition-opacity duration-500 ${
-          showImage ? "opacity-100" : "opacity-0"
-        }`}
-        onLoad={() => setLoaded(true)}
-        onError={() => setFailed(true)}
-        priority
-      />
-    </div>
-  );
-}
-
-function FallbackIcon() {
-  return (
-    <span
-      className="absolute inset-0 grid place-items-center"
-      style={{
-        background:
-          "radial-gradient(circle at 30% 25%, hsl(152 45% 18%) 0%, hsl(152 45% 11%) 60%, hsl(152 50% 7%) 100%)",
-      }}
-    >
-      <span className="font-serif text-base font-semibold gold-text">H</span>
-    </span>
-  );
-}
-
-function FallbackMedallion() {
-  return (
-    <div className="absolute inset-0">
-      <div className="absolute inset-0 rounded-full border border-primary/25" />
-      <div className="absolute inset-2 rounded-full border border-primary/20" />
-      <div
-        className="absolute inset-4 grain rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle at 30% 25%, hsl(152 45% 18%) 0%, hsl(152 45% 11%) 60%, hsl(152 50% 7%) 100%)",
-        }}
-      />
-      <div className="absolute inset-4 rounded-full border border-primary/35" />
-      <div className="absolute inset-0 grid place-items-center text-center">
-        <div>
-          <p className="font-serif text-3xl italic gold-text leading-none sm:text-4xl">
+  if (variant === "compact") {
+    return (
+      <div className={`inline-flex items-center gap-3 ${className}`}>
+        <BrandMark variant="icon" className="h-10 w-10" />
+        <div className="flex flex-col leading-none">
+          <span className="font-serif text-lg font-medium tracking-tight text-foreground">
             Hoorinaz
-          </p>
-          <p className="mt-1 font-serif text-lg italic text-primary/85 sm:text-xl">
-            Art
-          </p>
+          </span>
+          <span className="mt-1 text-[8px] uppercase tracking-[0.4em] text-primary/85">
+            Art Studio
+          </span>
         </div>
       </div>
+    );
+  }
+
+  // medallion — full wordmark composition
+  return (
+    <div
+      className={`relative flex flex-col items-center ${className}`}
+      role="img"
+      aria-label="Hoorinaz Art Studio"
+    >
+      {/* soft gold glow behind */}
+      <div
+        aria-hidden
+        className="absolute -inset-8 -z-10 rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, hsl(40 60% 50% / 0.18), transparent 70%)",
+        }}
+      />
+
+      {/* The H crest */}
+      <span
+        className="font-serif font-medium leading-[0.85] gold-text drop-shadow-[0_4px_18px_hsl(40_60%_30%/0.35)]"
+        style={{ fontSize: "clamp(7rem, 22vw, 12rem)" }}
+      >
+        H
+      </span>
+
+      {/* Gold rule with diamond divider */}
+      <div className="mt-5 flex w-full max-w-[18rem] items-center gap-3">
+        <span className="h-px flex-1 bg-gradient-to-l from-primary/80 to-transparent" />
+        <span
+          aria-hidden
+          className="block h-1.5 w-1.5 rotate-45 bg-primary shadow-[0_0_8px_hsl(40_70%_50%/0.5)]"
+        />
+        <span className="h-px flex-1 bg-gradient-to-r from-primary/80 to-transparent" />
+      </div>
+
+      {/* Hoorinaz wordmark */}
+      <p
+        className="mt-6 font-serif font-normal leading-none tracking-tight text-foreground"
+        style={{ fontSize: "clamp(2.5rem, 7vw, 4.25rem)" }}
+      >
+        Hoorinaz
+      </p>
+
+      {/* ART STUDIO caps */}
+      <p className="mt-4 text-xs uppercase tracking-[0.55em] text-primary/85 sm:text-sm">
+        Art Studio
+      </p>
     </div>
   );
 }

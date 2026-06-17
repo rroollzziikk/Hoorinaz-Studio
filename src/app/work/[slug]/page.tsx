@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { portfolioItems, categoryLabel } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { InstagramIcon } from "@/components/ui/icons";
+import { WorkTile } from "@/components/ui/work-tile";
 
 const INSTAGRAM_URL = "https://www.instagram.com/hoorinaz.art/";
 
@@ -41,10 +42,8 @@ export default async function WorkItemPage({
         </p>
       </header>
 
-      <div
-        className={`grain relative mt-12 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border/40 preview-${item.category}`}
-      >
-        <div className="absolute inset-0 bg-ink-fade opacity-60" />
+      <div className="group mt-12">
+        <WorkTile category={item.category} year={item.year} aspect="16/9" />
       </div>
 
       <div className="mt-12 grid gap-8 md:grid-cols-3">
@@ -100,13 +99,9 @@ export default async function WorkItemPage({
         </div>
         <div className="mt-6 grid gap-5 sm:grid-cols-3">
           {next.map((n) => (
-            <Link
-              key={n.slug}
-              href={`/work/${n.slug}`}
-              className="group block overflow-hidden rounded-xl border border-border/40 surface-card transition-all hover:-translate-y-1 hover:border-primary/50"
-            >
-              <div className={`grain aspect-[4/3] w-full preview-${n.category}`} />
-              <div className="p-4">
+            <Link key={n.slug} href={`/work/${n.slug}`} className="group block">
+              <WorkTile category={n.category} year={n.year} aspect="4/3" />
+              <div className="mt-3">
                 <p className="text-[10px] uppercase tracking-widest text-primary/80">
                   {categoryLabel[n.category]}
                 </p>

@@ -10,12 +10,7 @@ export function Footer() {
     <footer className="relative z-10 mt-24 border-t border-border/40 bg-ink-700/70">
       <div className="container grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-5">
-          <div className="flex items-center gap-3">
-            <BrandMark variant="icon" className="h-12 w-12" />
-            <p className="font-serif text-2xl">
-              Hoorinaz <span className="gold-text italic">Studio</span>
-            </p>
-          </div>
+          <BrandMark variant="compact" className="text-[1rem]" />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
             A handcraft &amp; design studio working across fashion, textile,
             wood, leather, and interior design — each piece quietly made by
