@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 40% 98%;
+    --foreground: 25 30% 15%;
+    --primary: 18 60% 45%;
+    --primary-foreground: 30 40% 98%;
+    --secondary: 30 25% 92%;
+    --secondary-foreground: 25 30% 15%;
+    --muted: 30 20% 94%;
+    --muted-foreground: 25 15% 40%;
+    --accent: 35 70% 88%;
+    --accent-foreground: 25 30% 15%;
+    --border: 30 15% 88%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
