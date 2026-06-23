@@ -10,9 +10,9 @@ export default function AboutPage() {
   return (
     <div className="container py-20">
       <header className="mx-auto max-w-2xl text-center">
-        <p className="text-xs uppercase tracking-widest text-primary/80">About</p>
+        <p className="text-xs uppercase tracking-widest text-accent">About</p>
         <h1 className="mt-3 font-serif text-4xl font-medium sm:text-5xl">
-          A small studio, made <span className="gold-text italic">slowly.</span>
+          A small studio, made <span className="italic text-accent">slowly.</span>
         </h1>
         <Ornament className="mt-8" />
       </header>
@@ -66,19 +66,19 @@ export default function AboutPage() {
       >
         <Ornament className="mb-10" />
 
-        <p className="font-farsi text-xs tracking-[0.3em] text-primary/80">
+        <p className="font-farsi text-xs tracking-[0.3em] text-accent">
           درباره
         </p>
 
         {/* The name in Persian — display calligraphy */}
-        <h2 className="mt-5 font-farsi text-6xl font-light leading-none gold-text sm:text-7xl">
+        <h2 className="mt-5 font-farsi text-6xl font-light leading-none text-foreground sm:text-7xl">
           حوریناز
         </h2>
 
         <div className="mt-8 flex w-full items-center justify-center gap-3">
-          <span className="h-px w-20 bg-gradient-to-l from-primary/70 to-transparent" />
-          <span aria-hidden className="block h-1.5 w-1.5 rotate-45 bg-primary" />
-          <span className="h-px w-20 bg-gradient-to-r from-primary/70 to-transparent" />
+          <span className="h-px w-20 bg-border" />
+          <span aria-hidden className="block h-1.5 w-1.5 rotate-45 bg-accent" />
+          <span className="h-px w-20 bg-border" />
         </div>
 
         <div className="mx-auto mt-10 max-w-2xl space-y-5 font-farsi text-[1.05rem] leading-loose text-muted-foreground sm:text-lg">

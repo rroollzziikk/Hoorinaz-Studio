@@ -26,7 +26,7 @@ export default async function WorkshopPage({
 
       <div className="mt-10 grid gap-12 md:grid-cols-12">
         <div className="md:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[10px] uppercase tracking-widest text-primary/90">
+          <div className="inline-flex items-center gap-2 rounded-sm border border-border px-3 py-1 text-[10px] uppercase tracking-widest text-muted-foreground">
             <ModeIcon className="h-3 w-3" /> {workshop.mode === "online" ? "Online" : "In Person"}
           </div>
           <h1 className="mt-5 font-serif text-5xl font-medium leading-tight sm:text-6xl">
@@ -48,16 +48,11 @@ export default async function WorkshopPage({
         </div>
 
         <aside className="md:col-span-5">
-          <div className="surface-card sticky top-24 overflow-hidden rounded-2xl border border-primary/30 p-8">
-            <div
-              aria-hidden
-              className="absolute -right-20 -top-20 h-48 w-48 rounded-full"
-              style={{ background: "radial-gradient(circle, hsl(40 60% 50% / 0.2), transparent 70%)" }}
-            />
+          <div className="surface-card sticky top-24 overflow-hidden rounded-sm border border-border p-8">
             {workshop.price && (
               <>
-                <p className="text-xs uppercase tracking-widest text-primary/80">From</p>
-                <p className="mt-1 font-serif text-5xl gold-text">{workshop.price}</p>
+                <p className="text-xs uppercase tracking-widest text-accent">From</p>
+                <p className="mt-1 font-serif text-5xl text-accent">{workshop.price}</p>
               </>
             )}
 

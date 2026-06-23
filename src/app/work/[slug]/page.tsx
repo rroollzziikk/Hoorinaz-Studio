@@ -29,7 +29,7 @@ export default async function WorkItemPage({
       </Link>
 
       <header className="mt-10 max-w-3xl">
-        <p className="text-xs uppercase tracking-widest text-primary/80">
+        <p className="text-xs uppercase tracking-widest text-accent">
           {categoryLabel[item.category]}
           {item.year && <span className="ml-3 text-muted-foreground/80">{item.year}</span>}
         </p>
@@ -61,8 +61,8 @@ export default async function WorkItemPage({
             , or follow the latest pieces on Instagram.
           </p>
         </div>
-        <aside className="surface-card rounded-2xl border border-border/40 p-6">
-          <p className="text-xs uppercase tracking-widest text-primary/80">Details</p>
+        <aside className="surface-card rounded-md border border-border p-6">
+          <p className="text-xs uppercase tracking-widest text-accent">Details</p>
           <dl className="mt-4 space-y-3 text-sm">
             <div className="flex items-center justify-between">
               <dt className="text-muted-foreground">Category</dt>
@@ -102,7 +102,7 @@ export default async function WorkItemPage({
             <Link key={n.slug} href={`/work/${n.slug}`} className="group block">
               <WorkTile category={n.category} year={n.year} aspect="4/3" />
               <div className="mt-3">
-                <p className="text-[10px] uppercase tracking-widest text-primary/80">
+                <p className="text-[10px] uppercase tracking-widest text-accent">
                   {categoryLabel[n.category]}
                 </p>
                 <h3 className="mt-1 font-serif text-lg">{n.title}</h3>

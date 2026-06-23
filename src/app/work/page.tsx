@@ -16,9 +16,9 @@ export default async function WorkPage({
   return (
     <div className="container py-20">
       <header className="mx-auto max-w-2xl text-center">
-        <p className="text-xs uppercase tracking-widest text-primary/80">Portfolio</p>
+        <p className="text-xs uppercase tracking-widest text-accent">Portfolio</p>
         <h1 className="mt-3 font-serif text-4xl font-medium sm:text-5xl">
-          The <span className="gold-text italic">work</span>
+          The <span className="italic text-accent">work</span>
         </h1>
         <p className="mt-5 text-muted-foreground">
           A selection of handcrafted pieces across mediums — fashion, textile,
@@ -38,14 +38,14 @@ export default async function WorkPage({
       </div>
 
       {/* Grid */}
-      <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
           <Link key={item.slug} href={`/work/${item.slug}`} className="group block">
             <WorkTile category={item.category} year={item.year} aspect="4/5" />
             <div className="mt-5">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-primary/75">
+              <p className="text-[10px] uppercase tracking-[0.24em] text-accent">
                 {categoryLabel[item.category]}
-                {item.year && <span className="text-muted-foreground/70"> · {item.year}</span>}
+                {item.year && <span className="text-muted-foreground"> · {item.year}</span>}
               </p>
               <h2 className="mt-2 font-serif text-2xl">{item.title}</h2>
               <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
@@ -59,7 +59,7 @@ export default async function WorkPage({
       {items.length === 0 && (
         <div className="mt-20 text-center text-muted-foreground">
           No pieces in this category yet.{" "}
-          <Link href="/work" className="text-primary hover:underline">See all work</Link>.
+          <Link href="/work" className="text-accent hover:underline">See all work</Link>.
         </div>
       )}
     </div>
@@ -68,9 +68,9 @@ export default async function WorkPage({
 
 function chip(active: boolean) {
   return [
-    "rounded-full border px-4 py-1.5 text-sm capitalize transition-all",
+    "rounded-sm border px-4 py-1.5 text-sm capitalize transition-colors duration-300",
     active
-      ? "border-primary bg-gold-gradient text-primary-foreground"
-      : "border-border/50 text-muted-foreground hover:border-primary/50 hover:text-foreground",
+      ? "border-foreground bg-foreground text-background"
+      : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
   ].join(" ");
 }

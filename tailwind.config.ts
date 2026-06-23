@@ -6,9 +6,9 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: "1.25rem",
+      padding: "1.5rem",
       screens: {
-        "2xl": "1280px",
+        "2xl": "1320px",
       },
     },
     extend: {
@@ -38,13 +38,15 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        gold: {
-          50:  "hsl(var(--gold-50))",
-          200: "hsl(var(--gold-200))",
-          400: "hsl(var(--gold-400))",
-          600: "hsl(var(--gold-600))",
-          800: "hsl(var(--gold-800))",
+        /* Warm bronze accent ramp — used sparingly for eyebrows, dividers, prices */
+        bronze: {
+          50: "hsl(var(--bronze-50))",
+          200: "hsl(var(--bronze-200))",
+          400: "hsl(var(--bronze-400))",
+          600: "hsl(var(--bronze-600))",
+          800: "hsl(var(--bronze-800))",
         },
+        /* Deep charcoal ramp — image scrims, the dark footer band */
         ink: {
           900: "hsl(var(--ink-900))",
           700: "hsl(var(--ink-700))",
@@ -52,24 +54,29 @@ const config: Config = {
         },
       },
       borderRadius: {
-        lg: "0.75rem",
-        md: "0.5rem",
-        sm: "0.25rem",
+        lg: "0.5rem",
+        md: "0.25rem",
+        sm: "0.125rem",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Cormorant Garamond", "Georgia", "serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
         farsi: ["var(--font-farsi)", "Vazirmatn", "Tahoma", "sans-serif"],
       },
       letterSpacing: {
-        wide: "0.06em",
+        wide: "0.05em",
         widest: "0.22em",
       },
+      maxWidth: {
+        prose: "42rem",
+      },
       backgroundImage: {
-        "gold-gradient":
-          "linear-gradient(135deg, hsl(42 70% 82%) 0%, hsl(40 55% 64%) 45%, hsl(34 50% 40%) 100%)",
-        "ink-fade":
-          "linear-gradient(180deg, hsl(152 38% 8% / 0) 0%, hsl(152 38% 8% / 0.85) 100%)",
+        /* Bottom-to-top dark scrim — for legible text over hero/image placeholders */
+        "scrim-b": "linear-gradient(180deg, transparent 0%, hsl(var(--ink-900) / 0.55) 100%)",
+        "scrim-t": "linear-gradient(0deg, transparent 0%, hsl(var(--ink-900) / 0.45) 100%)",
+      },
+      transitionTimingFunction: {
+        "luxury": "cubic-bezier(0.22, 1, 0.36, 1)",
       },
     },
   },
